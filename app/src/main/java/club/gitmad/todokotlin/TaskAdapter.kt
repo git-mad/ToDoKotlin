@@ -8,40 +8,34 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-class TaskAdapter(private val taskNames: ArrayList<String>) :
+class TaskAdapter(private val taskNames: MutableList<String>) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
-    class ViewHolder internal constructor(itemView: View) :
-        RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
-        var taskName: TextView
-        var parentLayout: RelativeLayout
-        override fun onClick(view: View) {}
+    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tvTaskName: TextView = itemView.findViewById(R.id.tvTaskName)
 
-        init {
-            taskName = itemView.findViewById(R.id.tvTaskName)
-            parentLayout = itemView.findViewById(R.id.taskItemLayout)
-            itemView.setOnClickListener(this)
+        fun bind(taskName: String) {
+            tvTaskName.text = taskName
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater.inflate(R.layout.task_list_item, parent, false)
+                return ViewHolder(view)
+            }
         }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.task_list_item, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(viewHolder: ViewHolder,position: Int) {
-        viewHolder.taskName.setText(taskNames[position])
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.bind(taskNames[position])
     }
 
     override fun getItemCount(): Int {
         return taskNames.size
     }
-
-
-
 }

@@ -22,17 +22,23 @@ class CustomDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.alert_dialog_box, container, false)
-        var input : EditText = view.findViewById(R.id.taskNameEditText)
-        var createButton : Button = view.findViewById(R.id.create_button)
-        var cancelButton : Button = view.findViewById(R.id.cancel_button)
-        createButton.setOnClickListener(View.OnClickListener {
+        return inflater.inflate(R.layout.alert_dialog_box, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val input: EditText = view.findViewById(R.id.taskNameEditText)
+
+        val createButton: Button = view.findViewById(R.id.create_button)
+        createButton.setOnClickListener {
             val taskName = input.text.toString()
             inputListener!!.sendInput(taskName) // Sending the EditText data back.
             dialog.dismiss()
-        })
-        cancelButton.setOnClickListener(View.OnClickListener { dialog.dismiss() })
-        return view
+        }
+
+        val cancelButton: Button = view.findViewById(R.id.cancel_button)
+        cancelButton.setOnClickListener { dialog.dismiss() }
     }
 
     override fun onAttach(context: Context) {
