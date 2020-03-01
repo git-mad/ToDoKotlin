@@ -1,8 +1,6 @@
 package club.gitmad.todokotlin
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +10,14 @@ import androidx.fragment.app.DialogFragment
 
 class CustomDialog : DialogFragment() {
 
+    private lateinit var etTaskName: EditText
+    private lateinit var btnCreate: Button
+    private lateinit var btnCancel: Button
+
     interface OnInputListener {
-        fun sendInput(input: String?)
+        fun sendInput(input: String)
     }
 
-    private var inputListener: OnInputListener? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,25 +29,17 @@ class CustomDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val input: EditText = view.findViewById(R.id.taskNameEditText)
+        etTaskName = view.findViewById(R.id.taskNameEditText)
 
-        val createButton: Button = view.findViewById(R.id.create_button)
-        createButton.setOnClickListener {
-            val taskName = input.text.toString()
-            inputListener!!.sendInput(taskName) // Sending the EditText data back.
+        btnCreate = view.findViewById(R.id.create_button)
+        btnCreate.setOnClickListener {
+            val taskName = etTaskName.text.toString()
+            (activity as OnInputListener).sendInput(taskName)
+
             dialog.dismiss()
         }
 
-        val cancelButton: Button = view.findViewById(R.id.cancel_button)
-        cancelButton.setOnClickListener { dialog.dismiss() }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        try {
-            inputListener = activity as OnInputListener?
-        } catch (e: ClassCastException) {
-            Log.e("CustomDialog", "OnInputListener onAttach", e)
-        }
+        btnCancel = view.findViewById(R.id.cancel_button)
+        btnCancel.setOnClickListener { dialog.dismiss() }
     }
 }

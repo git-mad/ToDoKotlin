@@ -3,10 +3,8 @@ package club.gitmad.todokotlin
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.util.*
 
 class TaskAdapter(private val taskNames: MutableList<String>) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
