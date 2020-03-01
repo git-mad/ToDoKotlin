@@ -1,4 +1,4 @@
-package gitmad.club.todokotlin
+package club.gitmad.todokotlin
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-class TaskAdapter(val taskNames: ArrayList<String>) :
-    RecyclerView.Adapter<gitmad.club.todokotlin.TaskAdapter.ViewHolder>() {
+class TaskAdapter(private val taskNames: ArrayList<String>) :
+    RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     class ViewHolder internal constructor(itemView: View) :
         RecyclerView.ViewHolder(itemView),
@@ -28,21 +28,18 @@ class TaskAdapter(val taskNames: ArrayList<String>) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): gitmad.club.todokotlin.TaskAdapter.ViewHolder {
+    ): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.task_list_item, parent, false)
-        return gitmad.club.todokotlin.TaskAdapter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(
-        viewHolder: gitmad.club.todokotlin.TaskAdapter.ViewHolder,
-        position: Int
-    ) {
-        viewHolder.taskName.setText(taskNames!![position])
+    override fun onBindViewHolder(viewHolder: ViewHolder,position: Int) {
+        viewHolder.taskName.setText(taskNames[position])
     }
 
     override fun getItemCount(): Int {
-        return taskNames!!.size
+        return taskNames.size
     }
 
 

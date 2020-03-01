@@ -1,4 +1,4 @@
-package gitmad.club.todokotlin
+package club.gitmad.todokotlin
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
-
 
 class CustomDialog : DialogFragment() {
 

@@ -1,4 +1,4 @@
-package gitmad.club.todokotlin
+package club.gitmad.todokotlin
 
 import org.junit.Test
 
