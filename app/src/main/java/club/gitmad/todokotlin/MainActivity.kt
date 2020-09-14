@@ -15,9 +15,7 @@ class MainActivity : AppCompatActivity(), CustomDialog.OnInputListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        rvTaskNames = findViewById(R.id.task_name_list)
-        rvTaskNames.layoutManager = LinearLayoutManager(this)
-        rvTaskNames.adapter = TaskAdapter(taskNames)
+        //setup rv
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
